@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Books In Store</title>
+</head>
+<body>
+<h1 th:text="${bookStore.getName()}"></h1>
+  <ul>
+    <li th:each="book : ${books}" th:text="${book.getTitle() + ', ' + book.getIsbn() + ', ' + book.getYear()}">
+    </li>
+  </ul>
+
+</body>
+</html>

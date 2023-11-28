@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Stores</title>
+</head>
+<body>
+<form action="/bookStores" method="post">
+    <ul>
+        <li th:each="bookStore : ${bookStores}">
+            <input type="radio" name="bookStoreId" th:value="${bookStore.getId()}"
+                   th:text="${bookStore.getName() + ', ' + bookStore.getCity() + ', ' + bookStore.getAddress()}">
+        </li>
+    </ul>
+    <input type="submit" value="See Books">
+</form>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Add new Author to Book</title>
+  <style type = "text/css">
+    body {
+      width: 800px;
+      margin: auto;
+    }
+    table {
+      width:100%;
+    }
+    table, td, th {
+      border: 1px solid black;
+      padding:3px 2px;
+    }
+    section {
+      float: left;
+      margin: 0 1.5%;
+      width: 63%;
+    }
+    aside {
+      float: right;
+      margin: 0 1.5%;
+      width: 30%;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Select the Author to add to the Book </h1>
+</header>
+<section>
+  <h3 th:text="'Book: ' + ${book.getTitle()}"></h3>
+  <h3>Authors: </h3>
+  <ul>
+    <li th:each="author : ${book.getAuthors()}">
+      <span th:text="${author.fullname()}"></span>
+    </li>
+  </ul>
+  <h2>Select author:</h2>
+  <form action="/bookDetails" method="post">
+    <input type="hidden" name="bookIsbn" th:value="${book.getIsbn()}">
+  <!-- Make changes to this code to dynamically display radio buttons for each author as in the example -->
+  <ul>
+    <li th:each="a : ${authors}">
+      <input type="radio" name="authorId" th:value="${a.getID()}" th:text="${a.fullname()}"> <br/>
+    </li>
+  </ul>
+  <br/>
+
+  <input type='submit' value='Add author'>
+  </form>
+</section>
+<aside>
+  <table>
+    <tr>
+      <!-- change to show selected book isbn -->
+      <td><b>Book Isbn</b></td>
+      <td th:text="${book.getIsbn()}"></td>
+    </tr>
+  </table>
+</aside>
+</body>
+</html>

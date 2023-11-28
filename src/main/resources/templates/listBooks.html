@@ -1,0 +1,63 @@
+<!-- listBooks.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>List of Books</title>
+
+  <style>
+    /* Style to display radio buttons horizontally */
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      display: block;
+      margin-right: 10px; /* Adjust the margin as needed */
+    }
+  </style>
+</head>
+<body>
+
+<h1>List of Books</h1>
+
+<form action="/author" method="post">
+  <ul>
+    <li th:each="book : ${books}">
+      <input type="radio" name="bookIsbn" th:value="${book.getIsbn()}"
+             th:text="${book.getTitle() + ', ' + book.getGenre() + ', ' + book.getYear() + ', The book is available at: '}">
+    </li>
+  </ul>
+  <ul>
+    <li th:each="bookStore : ${bookStores}">
+      <th:block>
+<!--        <p th:text="${bookStore.getName()}"></p>-->
+        <ul>
+          <li th:each="book : ${bookStore.getBooks()}">
+            <th:block>
+              <input type="radio" name="bookIsbn" th:value="${book.getIsbn()}"
+                     th:text="${book.getTitle() + ', ' + book.getIsbn() + ',' + book.getGenre() + ', ' + book.getYear() + ', The book is available at: ' +  book.getBookStore().getName()}">
+
+              <a th:href="@{'/books/edit/' + ${book.getId()}}" class="btn btn-primary">
+                <button type="button">Edit</button>
+              </a>
+
+
+              <a th:href="@{'/books/delete/' + ${book.getId()}}" class="btn btn-primary">
+                <button type="button">Delete</button>
+              </a>
+
+
+            </th:block>
+          </li>
+        </ul>
+      </th:block>
+    </li>
+  </ul>
+
+  <input type="submit" value="Add author">
+</form>
+
+</body>
+</html>
